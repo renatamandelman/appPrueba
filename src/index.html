@@ -22,11 +22,13 @@
     <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
     <link rel="manifest" href="./manifest.json" />
     <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/tateti.css" />
+
     <meta name="theme-color" content="#31d53d" />
   </head>
   <body>
     <div id="main"> 
-      <h2>My game</h2>
+      <h1>My game</h1>
       <button id="btn-g1">Game 1</button>
       <button id="btn-g2">Game 2</button>
       <button id="btn-g3">Game 3</button>
@@ -43,9 +45,14 @@
       </form>
     </div>
     <div id="g1" class="game nodisp">
-  <button id="btn-g1-back">Volver</button>
-  <h2>Game 1</h2> 
-  <p>EL juego 1 aca..</p>
+    <button id="btn-g1-back">Volver</button>
+    <h1> Ta-Te-Ti</h1>
+
+    <section id="contenedor"></section>
+
+    <h2> Turno de: <span id="turnojugador"></span></h2>
+
+  <a id="reiniciar"> reiniciar </a>
    </div>
     <div id="g2" class="game nodisp">
       <button id="btn-g2-back">Volver</button>
@@ -60,5 +67,6 @@
       
     </div>
     <script src="./js/app.js" type="module"></script>
+    <script src="./js/tateti.js" type="module"></script>
   </body>
 </html>

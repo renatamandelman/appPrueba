@@ -2,9 +2,12 @@
   display: none !important;
 }
 #g1 {
-  background-color: red;
-  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
+
 #g2 {
   background-color: yellow;
   color: black;
@@ -15,9 +18,13 @@
 }
 #main, .game, #perfil{
   padding: 0;
+  padding-top: env(safe-area-inset-top);
   margin:0;
   width:100vw;
   height:100vh;
+
 }
+
+
 
 

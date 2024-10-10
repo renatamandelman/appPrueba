@@ -1,0 +1,35 @@
+a {
+  text-decoration: none;
+  color: grey;
+}
+
+#contenedor {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  gap: 5px;
+  /* justify-content: space-evenly;
+    width: 40%;
+    height: 5% ; */
+}
+
+#contenedor > div {
+  border: 1px solid black;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.disable {
+  background-color: #ccc;
+  pointer-events: none;
+}
+.disable:hover {
+  cursor: not-allowed;
+}
+
+.winner {
+  background-color: rgb(194, 95, 255);
+  color: white;
+}
+

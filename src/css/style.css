@@ -1,0 +1,16 @@
+.nodisp {
+  display: none !important;
+}
+#g1 {
+  background-color: red;
+  color: white;
+}
+#g2 {
+  background-color: yellow;
+  color: black;
+}
+#g3 {
+  background-color: blue;
+  color: white;
+}
+

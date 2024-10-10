@@ -1,0 +1,10 @@
+{
+  "appId": "com.example.app",
+  "appName": "appPrueba",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  }
+}

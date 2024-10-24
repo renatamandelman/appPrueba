@@ -1,0 +1,32 @@
+
+#boardGenerala {
+    display: flex;
+    gap: 5px;
+  }
+  #boardGenerala > div {
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+#tirarDados{
+    margin-top:1em;
+}
+
+.selected{
+ border-color: red;
+}
+.dice{
+  border: 2px solid transparent;
+  display:inline-block;
+  padding:10px;
+  margin:20px;
+}
+
+
+.dice .selected{
+  border: 2px solid red;
+}
+

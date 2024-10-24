@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-    <title>Awesome Capacitor App</title>
+    <title>Juegos JS</title>
     <meta
       name="viewport"
       content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
@@ -23,14 +23,14 @@
     <link rel="manifest" href="./manifest.json" />
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/tateti.css" />
-
+    <link rel="stylesheet" href="./css/generala.css" />
     <meta name="theme-color" content="#31d53d" />
   </head>
   <body>
     <div id="main"> 
       <h1>My game</h1>
-      <button id="btn-g1">Game 1</button>
-      <button id="btn-g2">Game 2</button>
+      <button id="btn-g1">Tateti</button>
+      <button id="btn-g2">Generala</button>
       <button id="btn-g3">Game 3</button>
     </div>
     <div id="perfil" class="nodisp">
@@ -47,18 +47,42 @@
     <div id="g1" class="game nodisp">
     <button id="btn-g1-back">Volver</button>
     <h1> Ta-Te-Ti</h1>
-
+      
     <section id="contenedor"></section>
 
     <h2> Turno de: <span id="turnojugador"></span></h2>
 
   <a id="reiniciar"> reiniciar </a>
    </div>
+    <!-- <div id="g2" class="game nodisp" >
+      <button id="btn-g2-back">Volver</button>
+      <h2>Generala</h2> 
+      <section id="boardGenerala"></section>
+      <button id="tirarDados">Tirar Dados</button>
+     <div id="g2" class="game nodisp">
+        <button id="btn-g2-back">Volver</button>
+        <h2>Generala</h2>
+        <button id="btnDados">Tirar dados</button>
+        <section id="boardGenerala">
+          <div class="dice d0"></div>
+          <div class="dice d1"></div>
+          <div class="dice d2"></div>
+          <div class="dice d3"></div>
+          <div class="dice d4"></div>
+        </section>
+      </div> 
+    </div> -->
     <div id="g2" class="game nodisp">
       <button id="btn-g2-back">Volver</button>
-      <h2>Game 2</h2> 
-  <p>EL juego 2 aca..</p>
-  
+      <h2>Generala</h2>
+      <button id="btnDados">Tirar dados</button>
+      <section id="boardGenerala">
+        <div class="dice d0"></div>
+        <div class="dice d1"></div>
+        <div class="dice d2"></div>
+        <div class="dice d3"></div>
+        <div class="dice d4"></div>
+      </section>
     </div>
     <div id="g3" class="game nodisp">
       <button id="btn-g3-back">Volver</button>
@@ -68,5 +92,6 @@
     </div>
     <script src="./js/app.js" type="module"></script>
     <script src="./js/tateti.js" type="module"></script>
+    <script src="./js/generala.js" type="module"></script>
   </body>
 </html>

@@ -1,3 +1,8 @@
+body{
+ margin:0;
+ padding:0;
+ max-width: 100vw;
+}
 .nodisp {
   display: none !important;
 }
@@ -7,11 +12,13 @@
   align-items: center;
   flex-direction: column;
 }
-
 #g2 {
-  background-color: yellow;
-  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
+
 #g3 {
   background-color: blue;
   color: white;

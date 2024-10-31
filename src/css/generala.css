@@ -30,3 +30,26 @@
   border: 2px solid red;
 }
 
+#generala-player, #generala-moves{
+  font-weight: bolder;
+}
+
+#g2 .scores {
+margin: 1rem; font-size: 1.25rem;
+}
+
+.scores table {
+border-collapse: collapse;
+}
+#g2 .scores td, #g2 .scores th {
+padding: 0.25rem; min-width: 3rem;
+text-align: center;
+border: 1px solid white;
+}
+#g2 .scores table tbody tr:last-of-type td {
+font-weight: bold;
+cursor: default;
+}
+#g2 .scores table tbody tr{
+  cursor:pointer;
+}

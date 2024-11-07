@@ -16,7 +16,7 @@
 }
 
 .selected{
- border-color: red;
+ border:2px solid red !important;
 }
 .dice{
   border: 2px solid transparent;
@@ -26,9 +26,9 @@
 }
 
 
-.dice .selected{
+/* .dice .selected{
   border: 2px solid red;
-}
+} */
 
 #generala-player, #generala-moves{
   font-weight: bolder;
@@ -44,7 +44,7 @@ border-collapse: collapse;
 #g2 .scores td, #g2 .scores th {
 padding: 0.25rem; min-width: 3rem;
 text-align: center;
-border: 1px solid white;
+border: 1px solid black;
 }
 #g2 .scores table tbody tr:last-of-type td {
 font-weight: bold;
@@ -52,4 +52,43 @@ cursor: default;
 }
 #g2 .scores table tbody tr{
   cursor:pointer;
+}
+.playerTurn{
+  background-color:yellow;
+
+}
+.freeCell{
+  background-color: green;
+  color: white;
+}
+.modal{
+  border-radius: 0.5em;
+  background-color: aquamarine;
+  color:black;
+  padding: 1em;
+  position: fixed; 
+  z-index: 1; 
+  /* left: 0;
+  top: 0; */
+  width: 40%; 
+  height: 40%;
+  overflow: auto; 
+  font-size: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }

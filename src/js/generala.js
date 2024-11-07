@@ -26,7 +26,7 @@ const game = {
   turn: 1,
   moves: 1,
   scores: [],
-  round: 1,
+  round: 0,
   generala: 0,
 };
 
@@ -41,7 +41,7 @@ const isGameMatch = (regex) => {
 };
 
 function initGame() {
-  game.dados = [1, 1, 1, 1, 1];
+  game.dados = [0, 0, 0, 0, 0];
   game.selectedDices = [false, false, false, false, false];
   game.turn = 1;
   game.moves = 1;
@@ -82,7 +82,6 @@ function calculateScore(whichGame) {
     case 9:
       if (isGameMatch(reGenerala)) {
         score = game.moves === 2 ? 55 : 50;
-        game.generala = 1;
       }
       break;
     case 10:
@@ -98,6 +97,12 @@ function calculateScore(whichGame) {
       break;
   }
   return score;
+}
+
+function highlightCurrentPlayer(){
+  Array.from(document.querySelectorAll("#g2 .scores table thead tr th"))
+  .forEach(th => th.classList.remove("playerTurn"));
+  document.querySelector(`#g2 .scores table thead tr th:nth-of-type(${game.turn + 1})`).classList.add("playerTurn");
 }
 
 function drawScores() {
@@ -116,6 +121,7 @@ function drawScores() {
       if (i === game.turn - 1) {
         cellPlayerName.classList.add("playerTurn");
       }
+    // highlightCurrentPlayer();
     contHeader.appendChild(cellPlayerName);
   }
   //fila para cada juego
@@ -196,13 +202,14 @@ const changePlayerTurn = () => {
   if (game.turn > game.players) {
     game.turn = 1;
     game.round++;
-    if (game.round == 11) {
+    if (game.round === 11) {
       gameOver();
     }
   }
   btnDados.removeAttribute("disabled");
-  showDice();
+  drawDados();
   drawState();
+  highlightCurrentPlayer();
 };
 const gameOver = () => {
   btnDados.setAttribute("disabled", "disabled");

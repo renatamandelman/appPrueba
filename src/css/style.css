@@ -6,24 +6,19 @@ body{
 .nodisp {
   display: none !important;
 }
-#g1 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-#g2 {
+#g1,#g2 {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
+
 #g3 {
   background-color: blue;
   color: white;
 }
-#main, .game, #perfil{
+#main, .game{
   padding: 0;
   padding-top: env(safe-area-inset-top);
   margin:0;
@@ -31,7 +26,25 @@ body{
   height:100vh;
 
 }
+#btn-g1, #btn-g2{
+  width:20%;
 
+}
+#main{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+#main div {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#main h1{
+  margin-bottom: 2em;
+}
 
 
 

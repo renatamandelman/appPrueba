@@ -3,6 +3,7 @@ const max = 6;
 const section = document.getElementById("boardGenerala");
 const btnDados = document.getElementById("btnDados");
 const modal = document.querySelector("#g2 .modal");
+const backMain = document.getElementById("btn-g2-back");
 let dados;
 let selectedDices;
 
@@ -24,7 +25,7 @@ const game = {
   selectedDices: [false, false, false, false, false],
   players: 2,
   turn: 1,
-  moves: 1,
+  moves: 3,
   scores: [],
   round: 0,
   generala: 0,
@@ -44,7 +45,7 @@ function initGame() {
   game.dados = [0, 0, 0, 0, 0];
   game.selectedDices = [false, false, false, false, false];
   game.turn = 1;
-  game.moves = 1;
+  game.moves = 3;
   game.scores = [];
   for (let i = 0; i < game.players; i++) {
     game.scores.push(["", "", "", "", "", "", "", "", "", "", "", 0]);
@@ -153,8 +154,12 @@ function drawScores() {
       console.info(`attempt to score on game ${getGameName(i)}`);
 
       if (game.scores[game.turn - 1][i] !== "") {
-        modal.innerHTML = `ya se anoto el juego ${getGameName(i)}`;
-        modal.classList.remove("nodisp");
+        modal.innerHTML = `
+        <p>Ya se anoto el juego ${getGameName(i)}</p>
+        <a id="closeModal" class="btnModal">Anotar otro juego</a>
+        `;
+        closeModal();
+
         return;
       } else if (
         (i === 10 &&
@@ -164,21 +169,49 @@ function drawScores() {
           game.scores[game.turn - 1][9] === "X" &&
           isGameMatch(reGenerala))
       ) {
-        alert(
-          "No se puede anotar la doble generala sin haber anotado la general primero."
-        );
+        modal.innerHTML = `
+        <p>No se puede anotar la doble generala sin haber anotado la general primero</p>
+        <a id="closeModal" class="btnModal">Anotar otro juego</a>
+        `;
+        closeModal();
+  
         game.scores[game.turn - 1][i] = "X";
         drawScores();
         changePlayerTurn();
       } else if (i === 9 && game.scores[game.turn - 1][10] === "" && !isGameMatch(reGenerala)
       ) {
-        alert("No se puede tachar la generala sin haber anotado la doble");
+        modal.innerHTML = `
+        <p>No se puede tachar la generala sin haber tachado la doble</p>
+        <a id="closeModal" class="btnModal">Anotar otro juego</a>
+        `;
+        closeModal();
       } else {
         const score = calculateScore(i);
-        game.scores[game.turn - 1][i] = score === 0 ? "X" : score;
-        game.scores[game.turn - 1][11] += score;
-        drawScores();
-        changePlayerTurn();
+          if(score === 0){
+            modal.innerHTML = `
+            <p>Queres tachar ${getGameName(i)}?</p>
+            <div>
+            <a id="noTachar" class="btnModal">No</a>
+            <a id="tachar" class="btnModal">Si</a>
+            </div>
+            `
+            modal.classList.remove("nodisp");
+            document.querySelector("#tachar").addEventListener("click", () => {
+              game.scores[game.turn - 1][i] = "X";
+              modal.classList.add("nodisp");
+
+              drawScores();
+              changePlayerTurn();
+              });
+              document.querySelector("#noTachar").addEventListener("click", () => {
+                modal.classList.add("nodisp");
+                });
+          }else {
+            game.scores[game.turn - 1][i] = score === 0 ? "X" : score;
+            game.scores[game.turn - 1][11] += score;
+            drawScores();
+            changePlayerTurn();
+          }
       }
     });
   }
@@ -194,10 +227,11 @@ function drawScores() {
   contGames.appendChild(contTotal);
 }
 
+
 const changePlayerTurn = () => {
   game.dados = [0, 0, 0, 0, 0];
   game.selectedDices = [false, false, false, false, false];
-  game.moves = 1;
+  game.moves = 3;
   game.turn++;
   if (game.turn > game.players) {
     game.turn = 1;
@@ -206,13 +240,16 @@ const changePlayerTurn = () => {
       gameOver();
     }
   }
-  btnDados.removeAttribute("disabled");
+  btnDados.classList.remove("disable");
+  btnDados.removeAttribute("disabled")
   drawDados();
   drawState();
   highlightCurrentPlayer();
 };
 const gameOver = () => {
   btnDados.setAttribute("disabled", "disabled");
+  btnDados.classList.add("disable");
+
   let winner = 0;
   let winningScore = 0;
   for (let i = 0; i < game.players; i++) {
@@ -221,7 +258,17 @@ const gameOver = () => {
       winner = i;
     }
   }
-  alert(`Winner: J${winner} won with ${winningScore} points`);
+  modal.innerHTML = `
+            <p>Ganador: J${winner}</p>
+            <p>Ganó con: ${winningScore} puntos</p>
+            <div>
+            <a id="closeModal" class="btnModal">volver</a>
+            </div>
+            `;
+            closeModal();
+  backMain.removeAttribute("disabled", "disabled");
+  backMain.classList.remove("disableReiniciar");
+  backMain.classList.add("backBtn");
 };
 
 // function showDice(diceElement, dado) {
@@ -251,7 +298,7 @@ function drawDados() {
 
 function tirarDados() {
   for (let i = 0; i < game.dados.length; i++) {
-    if (game.moves === 1 || game.selectedDices[i]) {
+    if (game.moves === 3 || game.selectedDices[i]) {
       game.dados[i] = Math.floor(Math.random() * 6) + 1;
     }
   }
@@ -265,11 +312,15 @@ function tirarDados() {
     )
   );
 
-  game.moves++;
-  if (game.moves > 3) {
+  game.moves--;
+  console.log(game.moves)
+
+  if (game.moves < 1) {
     btnDados.setAttribute("disabled", "disabled");
+    btnDados.classList.add("disable");
   } else {
     drawState();
+
   }
 }
 const getGameName = (whichGame) => {
@@ -289,7 +340,6 @@ const toggleDiceSelection = (diceNumber) => {
 };
 
 const drawState = () => {
-  document.getElementById("generala-player").innerHTML = game.turn;
   document.getElementById("generala-moves").innerHTML = game.moves;
 };
 
@@ -302,26 +352,115 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 btnDados.addEventListener("click", () => {
   tirarDados();
+  backMain.setAttribute("disabled", "disabled");
+  backMain.classList.remove("backBtn");
+  backMain.classList.add("disableReiniciar");
 });
 
-function drawDot(ctx, x, y) {
+// function drawDot(ctx, x, y) {
+//   ctx.beginPath();
+//   ctx.arc(x, y, DOT_RADIUS, 0, 2 * Math.PI, false);
+//   ctx.fillStyle = "#000000";
+//   ctx.fill();
+//   ctx.closePath();
+// }
+
+// const showDice = (contDiv, number) => {
+//   contDiv.innerHTML = null;
+//   let canvas = document.createElement("canvas");
+//   canvas.setAttribute("width", "" + DICE_SIZE);
+//   canvas.setAttribute("height", "" + DICE_SIZE);
+//   drawDice(canvas, number);
+//   contDiv.appendChild(canvas);
+// };
+
+// const drawDice = (cont, number) => {
+//   let ctx = cont.getContext("2d");
+
+//   // Borro
+//   ctx.clearRect(0, 0, DICE_SIZE, DICE_SIZE);
+
+//   // Dado
+//   ctx.beginPath();
+//   ctx.rect(0, 0, DICE_SIZE, DICE_SIZE);
+//   ctx.fillStyle = "#EBF4F6";
+//   ctx.fill();
+//   ctx.closePath();
+
+//   switch (number) {
+//     case 1:
+//       drawDot(ctx, AT_HALF, AT_HALF);
+//       break;
+//     case 2:
+//       drawDot(ctx, AT_3QUARTER, AT_QUARTER);
+//       drawDot(ctx, AT_QUARTER, AT_3QUARTER);
+//       break;
+//     case 3:
+//       drawDot(ctx, AT_HALF, AT_HALF);
+//       drawDot(ctx, AT_3QUARTER, AT_QUARTER);
+//       drawDot(ctx, AT_QUARTER, AT_3QUARTER);
+//       break;
+//     case 4:
+//       drawDot(ctx, AT_3QUARTER, AT_QUARTER);
+//       drawDot(ctx, AT_QUARTER, AT_3QUARTER);
+//       drawDot(ctx, AT_QUARTER, AT_QUARTER);
+//       drawDot(ctx, AT_3QUARTER, AT_3QUARTER);
+//       break;
+//     case 5:
+//       drawDot(ctx, AT_HALF, AT_HALF);
+//       drawDot(ctx, AT_3QUARTER, AT_QUARTER);
+//       drawDot(ctx, AT_QUARTER, AT_3QUARTER);
+//       drawDot(ctx, AT_QUARTER, AT_QUARTER);
+//       drawDot(ctx, AT_3QUARTER, AT_3QUARTER);
+//       break;
+//     case 6:
+//       drawDot(ctx, AT_3QUARTER, AT_QUARTER);
+//       drawDot(ctx, AT_QUARTER, AT_3QUARTER);
+//       drawDot(ctx, AT_QUARTER, AT_QUARTER);
+//       drawDot(ctx, AT_3QUARTER, AT_3QUARTER);
+//       drawDot(ctx, AT_QUARTER, AT_HALF);
+//       drawDot(ctx, AT_3QUARTER, AT_HALF);
+//   }
+// };
+function getDiceSize() {
+  // Ajusta el tamaño del dado según el ancho de la pantalla
+  return window.innerWidth < 600 ? 60 : 100;
+}
+
+function getDotRadius(diceSize) {
+  return 0.1 * diceSize;
+}
+
+function getPositions(diceSize) {
+  return {
+    AT_QUARTER: 0.25 * diceSize,
+    AT_HALF: 0.5 * diceSize,
+    AT_3QUARTER: 0.75 * diceSize
+  };
+}
+
+function drawDot(ctx, x, y, dotRadius) {
   ctx.beginPath();
-  ctx.arc(x, y, DOT_RADIUS, 0, 2 * Math.PI, false);
+  ctx.arc(x, y, dotRadius, 0, 2 * Math.PI, false);
   ctx.fillStyle = "#000000";
   ctx.fill();
   ctx.closePath();
 }
 
 const showDice = (contDiv, number) => {
+  const DICE_SIZE = getDiceSize();
+  const DOT_RADIUS = getDotRadius(DICE_SIZE);
+  const { AT_QUARTER, AT_HALF, AT_3QUARTER } = getPositions(DICE_SIZE);
+  
   contDiv.innerHTML = null;
   let canvas = document.createElement("canvas");
-  canvas.setAttribute("width", "" + DICE_SIZE);
-  canvas.setAttribute("height", "" + DICE_SIZE);
-  drawDice(canvas, number);
+  canvas.setAttribute("width", DICE_SIZE);
+  canvas.setAttribute("height", DICE_SIZE);
+  drawDice(canvas, number, DICE_SIZE, DOT_RADIUS, AT_QUARTER, AT_HALF, AT_3QUARTER);
   contDiv.appendChild(canvas);
 };
 
-const drawDice = (cont, number) => {
+const drawDice = (cont, number, DICE_SIZE, DOT_RADIUS, AT_QUARTER, AT_HALF, AT_3QUARTER) => {
   let ctx = cont.getContext("2d");
 
   // Borro
@@ -330,42 +469,57 @@ const drawDice = (cont, number) => {
   // Dado
   ctx.beginPath();
   ctx.rect(0, 0, DICE_SIZE, DICE_SIZE);
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#EBF4F6";
   ctx.fill();
   ctx.closePath();
 
   switch (number) {
     case 1:
-      drawDot(ctx, AT_HALF, AT_HALF);
+      drawDot(ctx, AT_HALF, AT_HALF, DOT_RADIUS);
       break;
     case 2:
-      drawDot(ctx, AT_3QUARTER, AT_QUARTER);
-      drawDot(ctx, AT_QUARTER, AT_3QUARTER);
+      drawDot(ctx, AT_3QUARTER, AT_QUARTER, DOT_RADIUS);
+      drawDot(ctx, AT_QUARTER, AT_3QUARTER, DOT_RADIUS);
       break;
     case 3:
-      drawDot(ctx, AT_HALF, AT_HALF);
-      drawDot(ctx, AT_3QUARTER, AT_QUARTER);
-      drawDot(ctx, AT_QUARTER, AT_3QUARTER);
+      drawDot(ctx, AT_HALF, AT_HALF, DOT_RADIUS);
+      drawDot(ctx, AT_3QUARTER, AT_QUARTER, DOT_RADIUS);
+      drawDot(ctx, AT_QUARTER, AT_3QUARTER, DOT_RADIUS);
       break;
     case 4:
-      drawDot(ctx, AT_3QUARTER, AT_QUARTER);
-      drawDot(ctx, AT_QUARTER, AT_3QUARTER);
-      drawDot(ctx, AT_QUARTER, AT_QUARTER);
-      drawDot(ctx, AT_3QUARTER, AT_3QUARTER);
+      drawDot(ctx, AT_3QUARTER, AT_QUARTER, DOT_RADIUS);
+      drawDot(ctx, AT_QUARTER, AT_3QUARTER, DOT_RADIUS);
+      drawDot(ctx, AT_QUARTER, AT_QUARTER, DOT_RADIUS);
+      drawDot(ctx, AT_3QUARTER, AT_3QUARTER, DOT_RADIUS);
       break;
     case 5:
-      drawDot(ctx, AT_HALF, AT_HALF);
-      drawDot(ctx, AT_3QUARTER, AT_QUARTER);
-      drawDot(ctx, AT_QUARTER, AT_3QUARTER);
-      drawDot(ctx, AT_QUARTER, AT_QUARTER);
-      drawDot(ctx, AT_3QUARTER, AT_3QUARTER);
+      drawDot(ctx, AT_HALF, AT_HALF, DOT_RADIUS);
+      drawDot(ctx, AT_3QUARTER, AT_QUARTER, DOT_RADIUS);
+      drawDot(ctx, AT_QUARTER, AT_3QUARTER, DOT_RADIUS);
+      drawDot(ctx, AT_QUARTER, AT_QUARTER, DOT_RADIUS);
+      drawDot(ctx, AT_3QUARTER, AT_3QUARTER, DOT_RADIUS);
       break;
     case 6:
-      drawDot(ctx, AT_3QUARTER, AT_QUARTER);
-      drawDot(ctx, AT_QUARTER, AT_3QUARTER);
-      drawDot(ctx, AT_QUARTER, AT_QUARTER);
-      drawDot(ctx, AT_3QUARTER, AT_3QUARTER);
-      drawDot(ctx, AT_QUARTER, AT_HALF);
-      drawDot(ctx, AT_3QUARTER, AT_HALF);
+      drawDot(ctx, AT_3QUARTER, AT_QUARTER, DOT_RADIUS);
+      drawDot(ctx, AT_QUARTER, AT_3QUARTER, DOT_RADIUS);
+      drawDot(ctx, AT_QUARTER, AT_QUARTER, DOT_RADIUS);
+      drawDot(ctx, AT_3QUARTER, AT_3QUARTER, DOT_RADIUS);
+      drawDot(ctx, AT_QUARTER, AT_HALF, DOT_RADIUS);
+      drawDot(ctx, AT_3QUARTER, AT_HALF, DOT_RADIUS);
   }
 };
+
+// Actualizar el tamaño de los dados al redimensionar la ventana
+window.addEventListener("resize", () => {
+  document.querySelectorAll(".dice-container").forEach((contDiv, index) => {
+    showDice(contDiv, index + 1);
+  });
+});
+
+function closeModal(){
+   modal.classList.remove("nodisp");
+  document.querySelector("#closeModal").addEventListener("click", () => {
+      modal.classList.add("nodisp");
+        });
+
+        }

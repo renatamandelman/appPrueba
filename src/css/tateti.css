@@ -6,30 +6,109 @@ a {
 #contenedor {
   display: grid;
   grid-template-columns: repeat(3, 100px);
-  gap: 5px;
-  /* justify-content: space-evenly;
-    width: 40%;
-    height: 5% ; */
+  gap: 8px;
+  border-radius: 1em;
 }
 
 #contenedor > div {
-  border: 1px solid black;
+  border: 2px solid #088395;
   width: 100px;
   height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 0.5em;
+}
+#reiniciar svg{
+  width: 2em;
+}
+.reiniciar{
+  background-color: #088395;
+  color:white;
+}
+.reiniciar:hover{
+  cursor:pointer;
+}
+#reiniciar{
+  padding:1em;
+  border-radius:0.5em;
+
+}
+.disableReiniciarBoton{
+  width: 1.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size:1.2em;
+  color:grey;
+  pointer-events: none;
+  /* padding:1em;
+  border-radius:0.5em; */
 }
 .disable {
-  background-color: #ccc;
+  background-color: #d7ddda;
+  color:black;
   pointer-events: none;
 }
-.disable:hover {
+.disable:hover, .disableReiniciar:hover {
   cursor: not-allowed;
 }
 
 .winner {
-  background-color: rgb(194, 95, 255);
-  color: white;
+  background-color: #FF9C73;
+  
 }
+.xTurn{
+  margin-left: 0.5em;
+  font-size: 1em;
+  width: 1.5em;
+  color:#FF9C73;
+}
+.oTurn{
+  margin-left: 0.5em;
+  font-size: 1em;
+  width: 2em;
+  color:#FF9C73;
+}
+h2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 600px) {
+  #contenedor {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+  }
 
+  #contenedor > div {
+    width: 100px;
+    height: 100px;
+  }
+
+  #reiniciar {
+    padding: 0.8em;
+  }
+
+  .reiniciar {
+    font-size: 1em;
+
+  }
+
+  .xTurn, .oTurn {
+    font-size: 0.9em;
+    width: 1.2em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+  .gameContainer{
+    width:60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}

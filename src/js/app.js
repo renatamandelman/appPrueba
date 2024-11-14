@@ -20,6 +20,7 @@ function setupButtons(){
 
   });
 }
+
 function initApp(){
   setupButtons();
 }

@@ -259,7 +259,7 @@ const gameOver = () => {
     }
   }
   modal.innerHTML = `
-            <p>Ganador: J${winner}</p>
+            <p>Ganador: J${winner + 1}</p>
             <p>Ganó con: ${winningScore} puntos</p>
             <div>
             <a id="closeModal" class="btnModal">volver</a>
@@ -423,9 +423,16 @@ btnDados.addEventListener("click", () => {
 //   }
 // };
 function getDiceSize() {
-  // Ajusta el tamaño del dado según el ancho de la pantalla
-  return window.innerWidth < 600 ? 60 : 100;
+ 
+  if (window.innerWidth <= 600) {
+    return 60;
+  } else if (window.innerWidth <= 1024) {
+    return 30; 
+  } else {
+    return 100; 
+  }
 }
+
 
 function getDotRadius(diceSize) {
   return 0.1 * diceSize;
@@ -521,5 +528,4 @@ function closeModal(){
   document.querySelector("#closeModal").addEventListener("click", () => {
       modal.classList.add("nodisp");
         });
-
         }

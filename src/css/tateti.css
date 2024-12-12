@@ -55,26 +55,37 @@ a {
   cursor: not-allowed;
 }
 
-.winner {
-  background-color: #FF9C73;
+.winner, .winner svg {
+  background-color: #FF4545 !important;
+  fill:#FCF596 !important;
+}
+
+.xTurn{
+  pointer-events: none;
+  width:2em;
+  font-size: 1em;
+  background-color: #37B7C3;
+  fill:#EBF4F6;
   
 }
-.xTurn{
-  margin-left: 0.5em;
-  font-size: 1em;
-  width: 1.5em;
-  color:#FF9C73;
-}
 .oTurn{
-  margin-left: 0.5em;
+  pointer-events: none;
   font-size: 1em;
   width: 2em;
-  color:#FF9C73;
+  background-color:#FBD288; 
+  fill: #FF4545;
+ 
 }
-h2{
+.gameContainer h2{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.centered{
+  height:80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 @media (max-width: 600px) {
   #contenedor {
@@ -97,18 +108,71 @@ h2{
   }
 
   .xTurn, .oTurn {
-    font-size: 0.9em;
-    width: 1.2em;
+    font-size: 1.2em;
+  }
+
+  .gameContainer h2 {
+    font-size: 2em;
+  }
+  .gameContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .h2Reiniciar, .h1Contenedor{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+@media (orientation: landscape) and (max-width: 1024px) {
+  .h2Reiniciar, .h1Contenedor{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  .centered{
+    height:50vh;
+  }
+  #contenedor {
+    grid-template-columns: repeat(3, 80px); /* Columnas más pequeñas */
+    gap: 6px;
+  }
+  .gameContainer{
+    width:80%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    
+  }
+  #contenedor > div {
+    width: 80px;
+    height: 80px;
+  }
+
+  #reiniciar {
+    padding: 0.6em;
+    font-size: 0.8em;
+  }
+
+  .xTurn, .oTurn {
+    font-size: 1em;
+    width: 1em;
   }
 
   h2 {
     font-size: 1.5em;
   }
-  .gameContainer{
-    width:60%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  .disableReiniciar{
+    padding:0.5em;
+
+  }
+  h1{
+    font-size: 2.5em;
+    margin:0;
   }
 }

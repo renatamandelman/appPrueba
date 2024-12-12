@@ -8,19 +8,19 @@ body{
 .nodisp {
   display: none !important;
 }
-#g1,#g2 {
+#g2 {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
+#g1, #g2,#g3 {
+  display: flex;
+  flex-direction: column;
+  padding:1em;
+}
 #g1 h1, #g2 h1, #g3 h1{
   flex-grow: 1;
-}
-
-#g3 {
-  background-color: blue;
-  color: white;
 }
 
 
@@ -115,19 +115,16 @@ h1 {
   /* padding:1em;
   border-radius:0.5em; */
 }
+
 @media (max-width: 600px) {
-  h1 {
-    font-size: 2em;
-    margin-bottom:1em;
-  }
 
   #btn-g1, #btn-g2, #btn-g3 {
-    width: 90%; /* Ajusta el ancho del botón para móviles */
+    width: 90%; 
   }
 
   #btn-g1-back, #btn-g2-back, #btn-g3-back {
-    width: 10%;
-    font-size: 1em; /* Reduce la fuente */
+    width: 15%;
+    font-size: 1.2em; 
   }
 
   .mainContainer {
@@ -136,14 +133,20 @@ h1 {
     display: inline-flex;
     justify-content: space-evenly;
     align-items: center;
+    padding: 1em;
   }
 
   .mainContainer div {
-    width: 50%; /* Ajusta el ancho de las tarjetas para dispositivos pequeños */
-    margin-bottom: 1em; /* Añade un margen entre las tarjetas */
+    width: 50%; 
+    margin-bottom: 1em; 
   }
 
   .mainContainer div p {
-    font-size: 1.2rem; /* Reduce el tamaño de la fuente en las tarjetas */
+    font-size: 1.2rem; 
   }
 }
+@media (orientation: landscape) and (max-width: 1024px) {
+
+
+}
+ 

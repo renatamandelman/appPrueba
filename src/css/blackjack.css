@@ -1,0 +1,88 @@
+#canvasDiv {
+	background-position: center;
+	background-image: url('/Users/valeremandel/Desktop/appPrueba/src/assets/imgs/fondoBJ.jpg');
+	background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+  }
+  #botones {
+    width:90%;
+	margin-top:1.2em;
+	display: flex;
+	align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+  
+  #info {
+	text-align: center;
+	font-size: 1.2em;
+	margin: 20px;
+  }
+  
+  .button {
+	background-color: #37B7C3;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	font-size: 1.2em;
+	border-radius: 10px;
+	cursor: pointer;
+    margin:0.3em;
+  }
+  
+  #canvasDiv {
+	border-radius: 10px;
+  }
+  
+  #reset {
+	visibility: hidden;
+	background-color: #15bb1a;
+	border: none;
+	color: black;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius: 10px;
+	cursor: pointer;
+  }
+  .imgCard{
+    border: 2px solid white;
+    padding:1em;
+    margin:1em;
+    transform: rotateY(0deg);
+  transition: all 0.3s linear;
+  font-size: 1em;
+  color:white;
+  }
+  .back {
+    transition: all 0.3s linear;
+    transform: rotateY(180deg);
+  }
+  .container {
+    position: relative;
+  }
+  
+  .container:hover .front {
+    transform: rotateY(180deg);
+  }
+  
+  .container:hover .back {
+    transform: rotateY(360deg);
+  }
+  @media (max-width: 600px) {
+    h1{
+        font-size: 2em;
+    }
+
+  }
+  @media (orientation: landscape) and (max-width: 1024px) {
+
+
+  }

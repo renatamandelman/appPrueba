@@ -53,11 +53,12 @@ function randomCard() {
 
 function drawCard(CJ, hand, div) {
 	let img = document.createElement("img");
-	img.setAttribute("width", "100px");
-	img.setAttribute("height", "200px");
+	img.setAttribute("width", "80px");
+	img.setAttribute("height", "100px");
 	img.setAttribute("alt", `${CJ.valor}${CJ.palo}`);
-	img.setAttribute("src", `./assets/imgs/cartas/10C.svg`);
-	img.classList.add("imgCard")
+	// img.setAttribute("src", `./assets/imgs/cartas/10C.svg`);
+	img.setAttribute("src", document.getElementById(`${CJ.valor}${CJ.palo}`).getAttribute("src"));
+	img.classList.add("imgCard");
 	hand.appendChild(img);
 	div.appendChild(hand);
 }

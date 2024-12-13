@@ -53,8 +53,6 @@
 	cursor: pointer;
   }
   .imgCard{
-    border: 2px solid white;
-    padding:1em;
     margin:1em;
     transform: rotateY(0deg);
   transition: all 0.3s linear;

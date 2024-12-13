@@ -1,11 +1,12 @@
 #canvasDiv {
 	background-position: center;
-	background-image: url('/Users/valeremandel/Desktop/appPrueba/src/assets/imgs/fondoBJ.jpg');
+	background-image: url('/Users/valeremandel/Desktop/appPrueba/src/assets/imgs/fondoo.jpg');
 	background-size: cover;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     text-align: center;
+    height:fit-content;
   }
   #botones {
     width:90%;
@@ -53,27 +54,36 @@
 	cursor: pointer;
   }
   .imgCard{
-    margin:1em;
-    transform: rotateY(0deg);
-  transition: all 0.3s linear;
+    margin:0.5em;
+    /* transform: rotateY(0deg);
+  transition: all 0.3s linear; */
+  opacity: 0; /* Inicialmente invisibles */
+  transform: translateY(-20px); /* Empieza fuera de posición */
+  transition: opacity 0.5s ease, transform 0.5s ease;
   font-size: 1em;
   color:white;
   }
-  .back {
-    transition: all 0.3s linear;
-    transform: rotateY(180deg);
-  }
-  .container {
-    position: relative;
+  .imgCardPlayer {
+    margin:0.5em;
+    width: 80px;
+    height: 100px;
+    transition: transform 0.5s;
+    transform-style: preserve-3d; /* Para habilitar el giro 3D */
+}
+
+.card-back {
+    transform: rotateY(180deg); /* La parte de atrás está oculta inicialmente */
+}
+
+.flipped {
+    transform: rotateY(0deg); /* Voltea la carta para mostrar la parte delantera */
+}
+
+  .animateCard {
+    opacity: 1;
+    transform: translateY(0); /* Se deslizan a su posición final */
   }
   
-  .container:hover .front {
-    transform: rotateY(180deg);
-  }
-  
-  .container:hover .back {
-    transform: rotateY(360deg);
-  }
   @media (max-width: 600px) {
     h1{
         font-size: 2em;

@@ -7,6 +7,7 @@
     justify-content: space-between;
     text-align: center;
     height:fit-content;
+    color:white;
   }
   #botones {
     width:90%;
@@ -35,7 +36,9 @@
 	cursor: pointer;
     margin:0.3em;
   }
-  
+  #dinero{
+    background-color:#FF4545 !important;
+  }
   #canvasDiv {
 	border-radius: 10px;
   }
@@ -83,7 +86,49 @@
     opacity: 1;
     transform: translateY(0); /* Se deslizan a su posición final */
   }
+  input[type="number"] {
+    -moz-appearance: textfield; /* Ocultar flechas de Firefox */
+    appearance: textfield;      /* Ocultar flechas predeterminadas */
+    border: 2px solid #088395;
+    border-radius: 8px;
+    padding: 0.5em 1em;
+    font-size: 1rem;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: all 0.3s ease;
+    width: 120px; /* Ajusta el tamaño del input */
+    text-align: center;
+  }
   
+  /* Hover y focus */
+  input[type="number"]:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border-color: #055b63;
+  }
+  
+  input[type="number"]:focus {
+    border-color: #055b63;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* Estilo para botones de incremento y decremento */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  input[type="number"]::after {
+    content: '';
+  }
+  .apuesta{
+    font-size: 1.2em;
+    margin-left:1em;
+    text-align: left;
+  }
   @media (max-width: 600px) {
     h1{
         font-size: 2em;

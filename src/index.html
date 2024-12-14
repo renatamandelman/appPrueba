@@ -95,6 +95,7 @@
         <tbody></tbody>
       </table>
     </div>
+    <div id="modalBackground" class="modal-bg nodisp"></div>
     <div class="modal nodisp">
       <span class="close">X</span>
     </div>
@@ -161,19 +162,19 @@
 <img id="13T" src="./assets/imgs/cartas/13T.svg" alt="13T" class="nodisp">
 
   <div class="centered">
+    <div id="modalBackground" class="modal-bg nodisp"></div>
+    <div id="modalBJ" class="modal nodisp"></div>
     <div id="canvasDiv">
-      <div id="modalBJ" class="modal nodisp">
+      
 
-      </div>
+   
       <div id="crupier">
         <h2>Crupier</h2>
         <div id="crupierHand"></div>
       </div>
-      <!-- <div>
-        <h2>Winner: <span id="winner"></span></h2>
-      </div> -->
       <div id="player">
         <h2>Player</h2>
+        <p class="apuesta">Apuesta:$<span id="apuesta"></p>
         <div id="playerHand"> </div>
       </div>
     </div>
@@ -181,6 +182,7 @@
 			<button type="button" id="pedirCarta" class="button" >Pedir Carta</button>
 			<button type="button" id="plantar" class="button" >Plantarme</button>
 			<button type="button" id="retirar" class="button" > Retirarme </button>
+			<p  id="dinero" class="button" > $<span></span> </p>
 
     </div>
     <input type="button" value="Jugar otra vez!" id="reset" onclick="playagain()" >

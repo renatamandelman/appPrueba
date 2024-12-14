@@ -94,6 +94,16 @@ cursor: default;
 .modal p{
   font-size: 1.5em;
 }
+.modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  backdrop-filter: blur(5px);    /* Efecto de desenfoque */
+  z-index: 0;                 /* Detrás del modal */
+}
 .close {
   color: #fff;
   float: right;
@@ -187,8 +197,9 @@ cursor: default;
   /* Modal */
   .modal {
     width: 80%;
-    padding: 1em;
+    padding: 1.2em;
     border-radius: 0.4em;
+    text-align:center;
   }
   .modal p {
     font-size: 1.2em;

@@ -1,7 +1,7 @@
 #canvasDiv {
-	background-position: center;
-	background-image: url('/Users/valeremandel/Desktop/appPrueba/src/assets/imgs/fondoo.jpg');
-	background-size: cover;
+  background-position: center;
+  background-image: url('/Users/valeremandel/Desktop/appPrueba/src/assets/imgs/fondoo.jpg');
+  background-size: cover;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -10,81 +10,28 @@
     color:white;
   }
   #botones {
-    width:90%;
-	margin-top:1.2em;
-	display: flex;
-	align-items: center;
+    width:20%;
+  display: flex;
+  align-items: center;
     justify-content: space-evenly;
-    flex-wrap: wrap;
+   flex-direction: column;
   }
-  
-  #info {
-	text-align: center;
-	font-size: 1.2em;
-	margin: 20px;
-  }
-  
   .button {
-	background-color: #37B7C3;
-	border: none;
-	color: white;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	font-size: 1.2em;
-	border-radius: 10px;
-	cursor: pointer;
-    margin:0.3em;
-  }
-  #dinero{
-    background-color:#FF4545 !important;
-  }
-  #canvasDiv {
-	border-radius: 10px;
-  }
-  
-  #reset {
-	visibility: hidden;
-	background-color: #15bb1a;
-	border: none;
-	color: black;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	border-radius: 10px;
-	cursor: pointer;
-  }
-  .imgCard{
-    margin:0.5em;
-    /* transform: rotateY(0deg);
-  transition: all 0.3s linear; */
-  opacity: 0; /* Inicialmente invisibles */
-  transform: translateY(-20px); /* Empieza fuera de posición */
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  font-size: 1em;
-  color:white;
-  }
-  .imgCardPlayer {
-    margin:0.5em;
-    width: 80px;
-    height: 100px;
-    transition: transform 0.5s;
-    transform-style: preserve-3d; /* Para habilitar el giro 3D */
-}
-
-.card-back {
-    transform: rotateY(180deg); /* La parte de atrás está oculta inicialmente */
-}
-
-.flipped {
-    transform: rotateY(0deg); /* Voltea la carta para mostrar la parte delantera */
-}
-
-  .animateCard {
-    opacity: 1;
-    transform: translateY(0); /* Se deslizan a su posición final */
+    background-color: #37B7C3;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 10px;
+    cursor: pointer;
+      margin:0.3em;
+    }
+  .centered{
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   input[type="number"] {
     -moz-appearance: textfield; /* Ocultar flechas de Firefox */
@@ -124,14 +71,91 @@
   input[type="number"]::after {
     content: '';
   }
-  .apuesta{
-    font-size: 1.2em;
-    margin-left:1em;
-    text-align: left;
+  .imgCard{
+    margin:0.5em;
+    /* transform: rotateY(0deg);
+  transition: all 0.3s linear; */
+  opacity: 0; /* Inicialmente invisibles */
+  transform: translateY(-20px); /* Empieza fuera de posición */
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  font-size: 1em;
+  color:white;
   }
-  @media (max-width: 600px) {
+  .imgCardPlayer {
+    margin:0.5em;
+    width:80px;
+    height: 100px;
+    transition: transform 0.5s;
+    transform-style: preserve-3d; /* Para habilitar el giro 3D */
+}
+
+#dinero{
+  background-color:#FF4545 !important;
+}
+#canvasDiv {
+border-radius: 10px;
+}
+.buttonDisabled{
+  background-color: #C9C9C9;
+  pointer-events:none;
+  cursor:not-allowed;
+}
+
+
+.card-back {
+  transform: rotateY(180deg); /* La parte de atrás está oculta inicialmente */
+}
+
+.flipped {
+  transform: rotateY(0deg); /* Voltea la carta para mostrar la parte delantera */
+}
+
+.animateCard {
+  opacity: 1;
+  transform: translateY(0); /* Se deslizan a su posición final */
+}
+.apuesta{
+  font-size: 1.2em;
+  margin-left:1em;
+  text-align: left;
+}
+#modalWinner{
+  display: flex;
+}
+  @media (max-width: 500px) {
     h1{
         font-size: 2em;
+    }
+  
+    .centered{
+      height:80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #botones {
+      width:90%;
+    margin-top:1.2em;
+    display: flex;
+    align-items: center;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+      flex-direction: row;
+    }
+      
+      #info {
+      text-align: center;
+      font-size: 1.2em;
+      margin: 20px;
+      }
+      
+ 
+      .imgCardPlayer {
+        margin:0.5em;
+        width: 80px;
+        height: 100px;
+        transition: transform 0.5s;
+        transform-style: preserve-3d; /* Para habilitar el giro 3D */
     }
 
   }

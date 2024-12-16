@@ -24,7 +24,7 @@ body{
 }
 
 
-#btn-g1, #btn-g2, #btn-g3{
+#btn-g1 img, #btn-g2 img, #btn-g3 img{
   width:70%;
 }
 
@@ -118,7 +118,7 @@ h1 {
 
 @media (max-width: 600px) {
 
-  #btn-g1, #btn-g2, #btn-g3 {
+  #btn-g1 img, #btn-g2 img, #btn-g3 img {
     width: 90%; 
   }
 

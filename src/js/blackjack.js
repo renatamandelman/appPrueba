@@ -10,6 +10,8 @@ const modalBg = document.getElementById("modalBackground");
 const apuestaP = document.getElementById("apuesta");
 const resultado = document.getElementById("resultado");
 
+
+
 function board() {
   var canvasWidth = 400;
   var canvasHeight = 600;
@@ -18,9 +20,14 @@ function board() {
   if (window.innerWidth <= 600) {
     canvasDiv.style.width = canvasWidth + "px";
     canvasDiv.style.height = canvasHeight + "px";
-  } else if (window.innerWidth > 600) {
+  } else if (window.innerWidth > 600 && window.innerWidth < 1000) {
     canvasWidth = 600;
     canvasHeight = 300;
+    canvasDiv.style.width = canvasWidth + "px";
+    canvasDiv.style.height = canvasHeight + "px";
+  } else if(window.innerWidth > 1000){
+    canvasWidth = 700;
+    canvasHeight = 400;
     canvasDiv.style.width = canvasWidth + "px";
     canvasDiv.style.height = canvasHeight + "px";
   }
@@ -42,6 +49,7 @@ const blackJack = {
 };
 
 function createCards() {
+  blackJack.cards =[];
   for (let i = 0; i < blackJack.palos.length; i++) {
     for (let j = 1; j <= 13; j++) {
       blackJack.cards.push({
@@ -100,8 +108,10 @@ pedirCarta.addEventListener("click", () => {
   let mensaje = `
 	<p>Genera tu apuesta:</p>
 	<input type="number" id="apuesta" name="apuesta"  />
+  <div id="modalWinner">
 	<button id="btnApuesta" class="button">Apuesta</button>
 	<button id="btnNoApuesta" class="button">No apostar</button>
+  </div>
 	`;
   mostrarModal(mensaje);
   document.getElementById("btnApuesta").addEventListener("click", () => {
@@ -110,15 +120,14 @@ pedirCarta.addEventListener("click", () => {
     verificarDinero(apuesta);
   });
   document.getElementById("btnNoApuesta").addEventListener("click", () => {
-    modal.classList.add("nodisp");
-    modalBg.classList.add("nodisp");
+    closeModal();
   });
 });
 document.getElementById("plantar").addEventListener("click", () => {
   showCrupierCards();
   console.log("Total del crupier:", blackJack.totalCrupier);
   pedirCarta.setAttribute("disabled", "disabled");
-  pedirCarta.classList.add("disable");
+  pedirCarta.classList.add("buttonDisabled")
   setTimeout(() => { calculateWinner();}, 800)
 });
 
@@ -173,69 +182,108 @@ function calculateTotal(cards, who) {
   return total;
 }
 function calculateWinner() {
-	let mensaje;
-  if (blackJack.totalPlayer > 21) {
-	mensaje= `<h2>Perdiste</h2> 
-	<p>El total de tu mano es ${blackJack.totalPlayer} y supera el lí
-	mite de 21 puntos.</p>
-	<button id="reiniciar" class="button">Reinciar</button>
-	<button id="terminar" class="button">Terminar Juego</button>
-`;
-	mostrarModal(mensaje);
-	document.getElementById("terminar").addEventListener("click", closeModal);
-} else if (blackJack.totalCrupier > 21 && blackJack.totalPlayer < 21) {
-	mensaje= `<h2>Ganaste</h2> 
-	<p>El total de tu mano es ${blackJack.totalPlayer}</p>
-	<button id="reiniciar" class="button">Reinciar</button>
-	<button id="terminar" class="button">Terminar Juego</button>
-`;
-	mostrarModal(mensaje);
-	document.getElementById("terminar").addEventListener("click", closeModal);  
-} else if (
-    blackJack.totalPlayer > blackJack.totalCrupier &&
-    blackJack.totalPlayer <= 21
-  ) {
-	mensaje= `<h2>Ganaste</h2> 
-	<p>El total de tu mano es ${blackJack.totalPlayer}</p>
-	<button id="reiniciar" class="button">Reinciar</button>
-	<button id="terminar" class="button">Terminar Juego</button>
-`;
-	mostrarModal(mensaje);
-	document.getElementById("terminar").addEventListener("click", closeModal);  } else if (
+  if( (blackJack.totalPlayer > 21) || (
     blackJack.totalCrupier > blackJack.totalPlayer &&
     blackJack.totalCrupier <= 21
-  ) {
-    mensaje= `<h2>Perdiste</h2> 
-	<p>El total de tu mano es ${blackJack.totalPlayer} y supera el lí
-	mite de 21 puntos.</p>
-	<button id="reiniciar" class="button">Reinciar</button>
-	<button id="terminar" class="button">Terminar Juego</button>
+  ) ) {
+    modalWinner("Perdiste");
+
+} else if ((blackJack.totalCrupier > 21 && blackJack.totalPlayer < 21)||(
+  blackJack.totalPlayer > blackJack.totalCrupier &&
+  blackJack.totalPlayer <= 21
+)) {
+  modalWinner("Ganaste");
+}  else if (blackJack.totalPlayer === blackJack.totalCrupier) {
+	modalWinner("Empate");
+}
+}
+function modalWinner(result){
+  let mensaje =`<h2>${result}</h2> 
+	<p>El total de tu mano es ${blackJack.totalPlayer}</p>
+  <p>El total del crupier es ${blackJack.totalCrupier}</p>
+	<div id="modalWinner">
+  <button id="continuar" class="button">Continuar jugando</button>
+	<button id="retirar" class="button retirar">Retirarme</button>
+  </div>
 `;
-	mostrarModal(mensaje);
-	document.getElementById("terminar").addEventListener("click", closeModal);
-  } else if (blackJack.totalPlayer === blackJack.totalCrupier) {
-	mensaje= `<h2>Empate</h2> 
-	<p>El total de tu mano es ${blackJack.totalPlayer} y supera el lí
-	mite de 21 puntos.</p>
-	<button id="reiniciar" class="button">Reinciar</button>
-	<button id="terminar" class="button">Terminar Juego</button>
-`;
-	mostrarModal(mensaje);
-	document.getElementById("terminar").addEventListener("click", closeModal);  }
+mostrarModal(mensaje);
+document.getElementById("retirar").addEventListener("click", () => { closeModal(); initGame()});  
+
+document.getElementById("continuar").addEventListener("click", () => {closeModal();
+
+if(result == "Perdiste"){
+    // blackJack.dineroPlayer -= blackJack.apuesta;
+    if(blackJack.dineroPlayer > 0){
+      dinero.innerHTML = blackJack.dineroPlayer;
+      blackJack.apuesta = 0;
+      reiniciar();
+    } else{
+      dinero.innerHTML = 0;
+      mensaje = `
+      <p>Te quedaste sin dinero, puedes retirarte o ingresar dinero</p>
+      	<div id="modalWinner">
+	      <input type="number" id="apuesta" name="apuesta" min="1000" max="5000" />
+        	<button id="ingresar" class="button">Ingresar</button>
+        <button id="retirar"  class="button retirar">Retirarme</button>
+        </div>
+      `
+      mostrarModal(mensaje);
+      document.getElementById("ingresar").addEventListener("click", () => {
+        closeModal();
+        blackJack.dineroPlayer = parseInt(document.getElementById("apuesta").value);
+        dinero.innerHTML = blackJack.dineroPlayer;
+        reiniciar();
+        });
+    }
+    } else if(result == "Ganaste"){
+      blackJack.dineroPlayer += blackJack.apuesta * 2;
+      dinero.innerHTML = blackJack.dineroPlayer;
+      reiniciar();
+    } else if(result == "Empate"){
+      blackJack.dineroPlayer += blackJack.apuesta;
+      dinero.innerHTML = blackJack.dineroPlayer;
+      reiniciar();
+    }
+  });
 }
 
 function initGame() {
-  // blackJack.apuesta = 0;
+  blackJack.dineroPlayer = 5000;
+  reiniciar();
+  mostrarModalApuesta();
+  console.log(blackJack.cardsPlayer);
+}
+
+function reiniciar(){
+  pedirCarta.removeAttribute("disabled", "disabled");
+  pedirCarta.classList.remove("disable");
+  blackJack.apuesta = 0;
+  blackJack.totalPlayer = 0;
+  blackJack.totalCrupier = 0;
+  blackJack.as = 0;
+  blackJack.cardsPlayer = [];
+  blackJack.cardsCrupier = [];
+  playerHand.innerHTML = "";
+  crupierHand.innerHTML = "";
   apuestaP.innerHTML = blackJack.apuesta;
   dinero.innerHTML = blackJack.dineroPlayer;
   board();
   createCards();
   choseCards(blackJack.cardsPlayer, playerHand, playerDiv);
-  console.log(blackJack.cardsPlayer);
+  let mensaje = `
+   <p>Cuanto deseas apostar en la primer ronda?</p>
+	  <input type="number" id="apuesta" name="apuesta"  />
+	  <button id="btnApuesta" class="button">Apuesta</button>
+  `
+  mostrarModal(mensaje);
+  document.getElementById("btnApuesta").addEventListener("click", () => {
+    closeModal();
+    let apuesta = parseInt(document.getElementById("apuesta").value);
+    verificarDinero(apuesta);
+    });
 
-  mostrarModalApuesta();
+
 }
-
 function mostrarModalApuesta() {
   let mensaje = `
 	  <p>Cuanto deseas apostar en la primer ronda?</p>
@@ -246,23 +294,25 @@ function mostrarModalApuesta() {
 
   document.getElementById("btnApuesta").addEventListener("click", () => {
     let apuesta = parseInt(document.getElementById("apuesta").value);
-    if (apuesta < 1000 || apuesta > 5000) {
+    if (apuesta < 1000 || apuesta > 5000 || !apuesta) {
       mostrarErrorApuesta();
     } else {
       realizarApuesta(apuesta);
+      closeModal()
     }
   });
 }
 
-function mostrarModal(mensaje) {
+function mostrarModal(mensaje) {  
+  // modalBg.style.display = "flex";
   modal.classList.remove("nodisp");
-  modalBg.classList.remove("nodisp");
+
   modal.innerHTML = mensaje;
 }
 
-function ocultarModal() {
+function closeModal() {
+  // modalBg.style.display = "none";
   modal.classList.add("nodisp");
-  modalBg.classList.add("nodisp");
 }
 
 function realizarApuesta(apuesta) {
@@ -275,12 +325,11 @@ function realizarApuesta(apuesta) {
   blackJack.dineroPlayer -= apuesta;
   dinero.innerHTML = blackJack.dineroPlayer;
   apuestaP.innerHTML = blackJack.apuesta;
-  ocultarModal();
 }
 
 function mostrarErrorApuesta() {
   let mensaje = `
-	  <p>La apuesta máxima es 5000, ingresa un número menor</p>
+	  <p>La apuesta minima es 1000 y la apuesta máxima es 5000</p>
 	  <input type="number" id="apuesta" name="apuesta" min="1000" max="5000" />
 	  <button id="btnApuestaRetry" class="button">Volver a intentarlo</button>
 	`;
@@ -307,21 +356,22 @@ function transitionCard(cardsTo, hand, div, i) {
     cardsTo.push(cardSeleccionada);
     if (cardsTo === blackJack.cardsPlayer) {
       drawBackCard(cardSeleccionada, hand, div); // Dibuja la carta con el reverso al principio
+        blackJack.totalPlayer = calculateTotal(blackJack.cardsPlayer, "totalPlayer");
     } else {
       drawCard(cardSeleccionada, hand, div, true);
+      blackJack.totalCrupier = calculateTotal(blackJack.cardsCrupier, "totalCrupier");
     }
-    blackJack.totalPlayer = calculateTotal(cardsTo, "totalPlayer");
     console.log("Cartas del jugador:", cardsTo);
   }, i * 500);
 }
 function drawBackCard(cardSeleccionada, hand, div) {
   let img = document.createElement("img");
-  img.setAttribute("src", document.getElementById("back").getAttribute("src")); // Ruta al SVG del reverso
+  img.setAttribute("src", document.getElementById("back").getAttribute("src")); 
   img.setAttribute("alt", "card-back");
-  img.setAttribute("class", "imgCardPlayer card-back"); // Añadir clase para el estilo
+  img.setAttribute("class", "imgCardPlayer card-back"); 
   img.addEventListener("click", () => {
     flipCard(cardSeleccionada, img);
-  }); // Agregar el evento de clic para voltear
+  }); 
   hand.appendChild(img);
   div.appendChild(hand);
 }
@@ -331,9 +381,9 @@ function flipCard(cardSeleccionada, img) {
     document
       .getElementById(`${cardSeleccionada.valor}${cardSeleccionada.palo}`)
       .getAttribute("src")
-  ); // Cambiar la imagen a la parte delantera de la carta
-  img.setAttribute("alt", `${cardSeleccionada.valor}${cardSeleccionada.palo}`); // Establecer un nuevo valor alt
-  img.classList.add("flipped"); // Añadir una clase para animación
+  ); 
+  img.setAttribute("alt", `${cardSeleccionada.valor}${cardSeleccionada.palo}`); 
+  img.classList.add("flipped"); 
 }
 
 window.addEventListener("resize", board);
@@ -341,3 +391,7 @@ window.addEventListener("resize", board);
 document.addEventListener("DOMContentLoaded", () => {
   initGame();
 });
+document.getElementById("retirar").addEventListener("click", () => {closeModal(); initGame()});
+// document.getElementById("btn-g3-back").addEventListener("click", () => [
+//   reiniciar()
+// ])

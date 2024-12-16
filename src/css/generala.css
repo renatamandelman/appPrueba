@@ -95,6 +95,8 @@ cursor: default;
   font-size: 1.5em;
 }
 .modal-bg {
+  justify-content: center;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;

@@ -4,7 +4,7 @@ body{
  font-size: 100%; /* Asegura que el tamaño de fuente esté al 100% del valor del navegador */
   background-color: #EBF4F6;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  background-image: url("/Users/valeremandel/Desktop/appPrueba/src/assets/imgs/fondoBC.png");
+  background-image: url("/src/assets/imgs/fondoBC.png");
  background-size: cover;
 
 }

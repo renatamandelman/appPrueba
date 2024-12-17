@@ -3,6 +3,8 @@ const max = 6;
 const section = document.getElementById("boardGenerala");
 const btnDados = document.getElementById("btnDados");
 const modal = document.querySelector("#g2 .modal");
+const modalBg = document.querySelector("#g2  .modal-bg");
+console.log(modalBg)
 const backMain = document.getElementById("btn-g2-back");
 let dados;
 let selectedDices;
@@ -30,6 +32,8 @@ const game = {
   round: 0,
   generala: 0,
 };
+
+
 
 const isGameMatch = (regex) => {
   return (
@@ -100,11 +104,11 @@ function calculateScore(whichGame) {
   return score;
 }
 
-function highlightCurrentPlayer(){
-  Array.from(document.querySelectorAll("#g2 .scores table thead tr th"))
-  .forEach(th => th.classList.remove("playerTurn"));
-  document.querySelector(`#g2 .scores table thead tr th:nth-of-type(${game.turn + 1})`).classList.add("playerTurn");
-}
+// function highlightCurrentPlayer(){
+//   Array.from(document.querySelectorAll("#g2 .scores table thead tr "))
+//   .forEach(tr => tr.classList.remove("playerTurn"));
+//   document.querySelector(`#g2 .scores table thead tr:nth-of-type(${game.turn + 1})`).classList.add("playerTurn");
+// }
 
 function drawScores() {
   //header
@@ -137,6 +141,9 @@ function drawScores() {
     for (let p = 0; p < game.players; p++) {
       const cellPlayerScore = document.createElement("td");
       cellPlayerScore.innerHTML = game.scores[p][i];
+      if (p === game.turn - 1) {
+        cellPlayerScore.classList.add("playerTurn"); // Clase para destacar celdas de jugador actual
+      }
      
       if(cellPlayerScore.innerHTML !== "" ){
         cellPlayerScore.classList.add("freeCell");
@@ -156,7 +163,7 @@ function drawScores() {
       if (game.scores[game.turn - 1][i] !== "") {
         modal.innerHTML = `
         <p>Ya se anoto el juego ${getGameName(i)}</p>
-        <a id="closeModal" class="btnModal">Anotar otro juego</a>
+        <a id="closeModal" class="button">Anotar otro juego</a>
         `;
         closeModal();
 
@@ -171,7 +178,7 @@ function drawScores() {
       ) {
         modal.innerHTML = `
         <p>No se puede anotar la doble generala sin haber anotado la general primero</p>
-        <a id="closeModal" class="btnModal">Anotar otro juego</a>
+        <a id="closeModal" class="button">Anotar otro juego</a>
         `;
         closeModal();
   
@@ -182,7 +189,7 @@ function drawScores() {
       ) {
         modal.innerHTML = `
         <p>No se puede tachar la generala sin haber tachado la doble</p>
-        <a id="closeModal" class="btnModal">Anotar otro juego</a>
+        <a id="closeModal" class="button">Anotar otro juego</a>
         `;
         closeModal();
       } else {
@@ -190,21 +197,24 @@ function drawScores() {
           if(score === 0){
             modal.innerHTML = `
             <p>Queres tachar ${getGameName(i)}?</p>
-            <div>
-            <a id="noTachar" class="btnModal">No</a>
-            <a id="tachar" class="btnModal">Si</a>
+            <div >
+            <a id="noTachar" class="button">No</a>
+            <a id="tachar" class="button">Si</a>
             </div>
             `
             modal.classList.remove("nodisp");
+            modalBg.style.display = "flex";
             document.querySelector("#tachar").addEventListener("click", () => {
               game.scores[game.turn - 1][i] = "X";
               modal.classList.add("nodisp");
+              modalBg.style.display = "none";
 
               drawScores();
               changePlayerTurn();
               });
               document.querySelector("#noTachar").addEventListener("click", () => {
                 modal.classList.add("nodisp");
+                modalBg.style.display = "none";
                 });
           }else {
             game.scores[game.turn - 1][i] = score === 0 ? "X" : score;
@@ -240,15 +250,16 @@ const changePlayerTurn = () => {
       gameOver();
     }
   }
-  btnDados.classList.remove("disable");
-  btnDados.removeAttribute("disabled")
+  btnDados.removeAttribute("disabled", "disabled");
+  btnDados.classList.remove("buttonDisabled");
   drawDados();
   drawState();
-  highlightCurrentPlayer();
+  drawScores();
 };
+
 const gameOver = () => {
   btnDados.setAttribute("disabled", "disabled");
-  btnDados.classList.add("disable");
+  btnDados.classList.add("buttonDisabled");
 
   let winner = 0;
   let winningScore = 0;
@@ -262,10 +273,18 @@ const gameOver = () => {
             <p>Ganador: J${winner + 1}</p>
             <p>Ganó con: ${winningScore} puntos</p>
             <div>
-            <a id="closeModal" class="btnModal">volver</a>
+            <button id="backHome" class="button">Volver a home</button>
+            <button id="closeModal" class="button">Terminar</button>
             </div>
             `;
-            closeModal();
+            document.getElementById("closeModal").addEventListener("click", () => {
+              closeModal();
+              initGame();
+              });
+            document.getElementById("backHome").addEventListener("click", () => {
+              closeModal();
+              window.location.href = "index.html";
+            });
   backMain.removeAttribute("disabled", "disabled");
   backMain.classList.remove("disableReiniciar");
   backMain.classList.add("backBtn");
@@ -288,8 +307,9 @@ function drawDados() {
 
     if (game.selectedDices[i]) {
       diceElement.classList.add("selected");
+
     } else {
-      diceElement.classList.remove("selected");
+      diceElement.style.border = "2px solid grey";
     }
     // diceElement.innerHTML = dice;
     showDice(diceElement, dado);
@@ -317,7 +337,7 @@ function tirarDados() {
 
   if (game.moves < 1) {
     btnDados.setAttribute("disabled", "disabled");
-    btnDados.classList.add("disable");
+    btnDados.classList.add("buttonDisabled");
   } else {
     drawState();
 
@@ -427,7 +447,7 @@ function getDiceSize() {
   if (window.innerWidth <= 600) {
     return 60;
   } else if (window.innerWidth <= 1024) {
-    return 30; 
+    return 50; 
   } else {
     return 100; 
   }
@@ -476,7 +496,7 @@ const drawDice = (cont, number, DICE_SIZE, DOT_RADIUS, AT_QUARTER, AT_HALF, AT_3
   // Dado
   ctx.beginPath();
   ctx.rect(0, 0, DICE_SIZE, DICE_SIZE);
-  ctx.fillStyle = "#EBF4F6";
+  ctx.fillStyle = "transparent";
   ctx.fill();
   ctx.closePath();
 
@@ -525,7 +545,13 @@ window.addEventListener("resize", () => {
 
 function closeModal(){
    modal.classList.remove("nodisp");
+   modalBg.style.display = "flex";
   document.querySelector("#closeModal").addEventListener("click", () => {
       modal.classList.add("nodisp");
+      modalBg.style.display = "none";
         });
         }
+        // document.getElementById("llenar").addEventListener("click", () => {
+        //   //   calculateScore();
+        //   //   gameOver();
+        //   // })

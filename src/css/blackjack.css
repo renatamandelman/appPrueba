@@ -12,7 +12,7 @@
   #botones {
     width:20%;
   display: flex;
-  align-items: center;
+  align-items: stretch;
     justify-content: space-evenly;
    flex-direction: column;
   }
@@ -28,7 +28,7 @@
     cursor: pointer;
       margin:0.3em;
     }
-  .centered{
+  #g3 .centered{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -96,7 +96,7 @@
 border-radius: 10px;
 }
 .buttonDisabled{
-  background-color: #C9C9C9;
+  background-color: #C9C9C9 !important;
   pointer-events:none;
   cursor:not-allowed;
 }
@@ -127,11 +127,12 @@ border-radius: 10px;
         font-size: 2em;
     }
   
-    .centered{
+    #g3 .centered{
       height:80vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
     }
     #botones {
       width:90%;
@@ -160,6 +161,20 @@ border-radius: 10px;
 
   }
   @media (orientation: landscape) and (max-width: 1024px) {
+   #canvasDiv{
+    flex-direction: row;
+    justify-content: space-around;
+   }
 
-
+    .imgCardPlayer {
+      width: 50px;
+      height: 70px;
+  }
+  .animateCard{
+    width: 50px;
+    height: 70px;
+  }
+  #g3 .centered{
+    justify-content: space-around;
+  }
   }

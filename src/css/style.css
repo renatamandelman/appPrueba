@@ -4,6 +4,9 @@ body{
  font-size: 100%; /* Asegura que el tamaño de fuente esté al 100% del valor del navegador */
   background-color: #EBF4F6;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background-image: url("/Users/valeremandel/Desktop/appPrueba/src/assets/imgs/fondoBC.png");
+ background-size: cover;
+
 }
 .nodisp {
   display: none !important;
@@ -126,6 +129,9 @@ h1 {
     width: 15%;
     font-size: 1.2em; 
   }
+  #g2{
+    align-items: flex-start;
+  }
 
   .mainContainer {
     flex-direction: column;
@@ -147,6 +153,12 @@ h1 {
 }
 @media (orientation: landscape) and (max-width: 1024px) {
 
-
+#main{
+  background-size: contain;
+  height: 90vh;
+}
+.mainContainer div{
+  width:20%;
+}
 }
  

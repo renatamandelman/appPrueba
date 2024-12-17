@@ -6,7 +6,7 @@ const pedirCarta = document.getElementById("pedirCarta");
 const winner = document.getElementById("winner");
 const dinero = document.querySelector("#dinero span");
 const modal = document.getElementById("modalBJ");
-const modalBg = document.getElementById("modalBackground");
+const modalBg = document.querySelector("#g3 .centered .modal-bg");
 const apuestaP = document.getElementById("apuesta");
 const resultado = document.getElementById("resultado");
 
@@ -15,7 +15,6 @@ const resultado = document.getElementById("resultado");
 function board() {
   var canvasWidth = 400;
   var canvasHeight = 600;
-  // var ctx = canvasDiv.getContext("2d");
 
   if (window.innerWidth <= 600) {
     canvasDiv.style.width = canvasWidth + "px";
@@ -105,7 +104,8 @@ function showCrupierCards() {
 
 pedirCarta.addEventListener("click", () => {
   transitionCard(blackJack.cardsPlayer, playerHand, playerDiv);
-  let mensaje = `
+  setTimeout(() => {
+    let mensaje = `
 	<p>Genera tu apuesta:</p>
 	<input type="number" id="apuesta" name="apuesta"  />
   <div id="modalWinner">
@@ -122,13 +122,14 @@ pedirCarta.addEventListener("click", () => {
   document.getElementById("btnNoApuesta").addEventListener("click", () => {
     closeModal();
   });
+  }, 2000);
 });
 document.getElementById("plantar").addEventListener("click", () => {
   showCrupierCards();
   console.log("Total del crupier:", blackJack.totalCrupier);
   pedirCarta.setAttribute("disabled", "disabled");
-  pedirCarta.classList.add("buttonDisabled")
-  setTimeout(() => { calculateWinner();}, 800)
+  pedirCarta.classList.add("buttonDisabled");
+  setTimeout(() => { calculateWinner();}, 2000)
 });
 
 function verificarDinero(apuesta) {
@@ -147,6 +148,7 @@ function verificarDinero(apuesta) {
     });
   } else {
     realizarApuesta(apuesta);
+    closeModal();
   }
 }
 function calculateTotal(cards, who) {
@@ -250,7 +252,6 @@ if(result == "Perdiste"){
 function initGame() {
   blackJack.dineroPlayer = 5000;
   reiniciar();
-  mostrarModalApuesta();
   console.log(blackJack.cardsPlayer);
 }
 
@@ -270,21 +271,13 @@ function reiniciar(){
   board();
   createCards();
   choseCards(blackJack.cardsPlayer, playerHand, playerDiv);
-  let mensaje = `
-   <p>Cuanto deseas apostar en la primer ronda?</p>
-	  <input type="number" id="apuesta" name="apuesta"  />
-	  <button id="btnApuesta" class="button">Apuesta</button>
-  `
-  mostrarModal(mensaje);
-  document.getElementById("btnApuesta").addEventListener("click", () => {
-    closeModal();
-    let apuesta = parseInt(document.getElementById("apuesta").value);
-    verificarDinero(apuesta);
-    });
-
+  primerApuesta();
+ 
 
 }
-function mostrarModalApuesta() {
+function primerApuesta() {
+  setTimeout(() => {
+
   let mensaje = `
 	  <p>Cuanto deseas apostar en la primer ronda?</p>
 	  <input type="number" id="apuesta" name="apuesta" min="1000" max="5000" />
@@ -301,17 +294,19 @@ function mostrarModalApuesta() {
       closeModal()
     }
   });
+}, 3000);
 }
 
-function mostrarModal(mensaje) {  
-  // modalBg.style.display = "flex";
+function mostrarModal(mensaje) { 
+  console.log(modalBg) 
+  modalBg.style.display = "flex";
   modal.classList.remove("nodisp");
 
   modal.innerHTML = mensaje;
 }
 
 function closeModal() {
-  // modalBg.style.display = "none";
+  modalBg.style.display = "none";
   modal.classList.add("nodisp");
 }
 
@@ -341,6 +336,8 @@ function mostrarErrorApuesta() {
       mostrarErrorApuesta();
     } else {
       realizarApuesta(blackJack.apuesta);
+      closeModal()
+
     }
   });
 }
@@ -353,7 +350,29 @@ function choseCards(cardsTo, hand, div) {
 function transitionCard(cardsTo, hand, div, i) {
   setTimeout(() => {
     const cardSeleccionada = randomCard();
+    console.log("valor" + cardSeleccionada.valor)
+    if(cardsTo === blackJack.cardsPlayer && cardSeleccionada.valor === 1){
+      let mensaje = `
+      <p>Te toco un As, deseas elegirlo como 1 o 11?</p>
+      <div class="modalWinner">
+      <button class="button" id="as">1</button>
+      <button class="button" id="11">11</button>
+      </div>
+      `
+      mostrarModal(mensaje);
+      document.getElementById("as").addEventListener("click", () =>{
+        cardSeleccionada.valor = 1;
+        primerApuesta();
+        closeModal();
+      });
+      document.getElementById("11").addEventListener("click", () =>{
+        cardSeleccionada.valor = 11;
+        primerApuesta();
+        closeModal();
+      });
+    }
     cardsTo.push(cardSeleccionada);
+    console.log(cardsTo)
     if (cardsTo === blackJack.cardsPlayer) {
       drawBackCard(cardSeleccionada, hand, div); // Dibuja la carta con el reverso al principio
         blackJack.totalPlayer = calculateTotal(blackJack.cardsPlayer, "totalPlayer");

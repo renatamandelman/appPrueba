@@ -4,12 +4,14 @@
     gap: 5px;
   }
   #boardGenerala > div {
-    border: 1px solid black;
+    border:2px solid #088395;
     width: 100px;
     height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 0.5em;
+
   }
 #tirarDados{
     margin-top:1em;
@@ -50,16 +52,19 @@
 }
 
 #g2 .scores {
-margin: 1rem; font-size: 1.25rem;
+ font-size: 1.25rem;
 }
 
 .scores table {
 border-collapse: collapse;
+border: 2px solid #088395;
+border-radius: 1em; /* Borde redondeado */
 }
 #g2 .scores td, #g2 .scores th {
-padding: 0.25rem; min-width: 3rem;
+padding: 0.5rem; 
+min-width: 3rem;
 text-align: center;
-border: 1px solid black;
+border: 1px solid #088395;
 
 }
 #g2 .scores table tbody tr:last-of-type td {
@@ -70,7 +75,7 @@ cursor: default;
   cursor:pointer;
 }
 .playerTurn{
-  background-color:yellow;
+  background-color:#FBD288;
 
 }
 .freeCell{
@@ -95,6 +100,7 @@ cursor: default;
   font-size: 1.5em;
 }
 .modal-bg {
+  display: none;
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -128,20 +134,23 @@ cursor: default;
   font-size: 1em;
 }
 @media (max-width: 600px) {
-  .centered{
-    flex-wrap: wrap;
+  #g2 .centered{
+    display:block;
   }
   #g2 h1 {
     font-size: 2em;
+    padding: 0;
+  }
+  #g2 title{
     margin-bottom:1em;
   }
-  .wrapAll{
+  #g2 .wrapAll{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-  .wrapResponsive{
+  #g2 .wrapResponsive{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -149,31 +158,24 @@ cursor: default;
   }
 
   #boardGenerala {
-    display:grid;
-    grid-template-columns: repeat(3, 100px);
-    gap: 8px;
+    width: 80%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
   }
   #boardGenerala > div {
-    width: 50px;
-    height: 50px;
-    border: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 60px;
+    height: 60px;
   }
   #tirarDados {
     margin-top: 1em;
   }
 
   #btnDados {
-  display: inline-flex;
-  align-items: center;
-  color: white;
-  background-color: #088395;
-  padding: 0.4em;
-  width: 35%;
+  width: 40%;
   border-radius: 0.5em;
-  justify-content: center;
+  font-size: 1.1em;
+  margin-bottom:0.5em;
   }
 
   #btnDados svg {
@@ -187,12 +189,13 @@ cursor: default;
   }
 
   #g2 .scores {
-    margin: 0.5rem;
-    font-size: 1.5em;
+    font-size: 1.3em;
+    border-radius:1em;
+    margin-top: -1em;
   }
   #g2 .scores td,
   #g2 .scores th {
-    padding: 0.15rem;
+    padding: 0.25rem;
     min-width: 2rem;
   }
 
@@ -203,8 +206,9 @@ cursor: default;
     border-radius: 0.4em;
     text-align:center;
   }
-  .modal p {
-    font-size: 1.2em;
+
+  .modal div{
+    display:flex;
   }
 
   .close {
@@ -215,43 +219,54 @@ cursor: default;
     font-size: 0.9em;
     padding: 0.5em;
   }
+  .game-state{
+    width:90%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size:1.3em;
+  }
 }
 /* Media Query para dispositivos en modo landscape y un ancho máximo de 1024px */
 @media (orientation: landscape) and (max-width: 1024px) {
+  #g2 .centered{
+    flex-direction: column;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    
+  }
   #boardGenerala {
-    display: inline-flex;
-    gap: 2px;
+        width: 60%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap:0;
   }
 
   #boardGenerala > div {
-    width: 30px;
-    height: 30px;
-    border: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 40px;
+    height: 40px;
   }
-.wrapAll{
+#g2 .wrapAll{
   display:flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between  ;
+  width:80vw;
 }
- .wrapResponsive{
+ #g2 .wrapResponsive{
   display:flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
  }
 
-  #btnDados {
-    display: inline-flex;
-    align-items: center;
-    color: white;
-    background-color: #088395;
-    padding: 0.5em;
-    width: 40%;
-    border-radius: 0.5em;
-    justify-content: center;
+  
+ #btnDados {
+  width: 30%;
+  border-radius: 0.5em;
+  font-size: 1em;
+  margin-bottom:0.5em;
   }
 
   #btnDados svg {
@@ -267,8 +282,8 @@ cursor: default;
   }
 
   #g2 .scores {
-    margin: 0.5rem;
-    font-size: 0.5em;
+    font-size: 0.8em;
+    margin-top: -2em;
   }
   #g2 .scores td,
   #g2 .scores th {
@@ -278,7 +293,7 @@ cursor: default;
 
   /* Modal */
   .modal {
-    width: 70%;
+    width: 50%;
     padding: 1.2em;
     border-radius: 0.4em;
   }

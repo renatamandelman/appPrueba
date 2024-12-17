@@ -1,6 +1,6 @@
 #canvasDiv {
   background-position: center;
-  background-image: url('src/assets/imgs/fondoo.jpg');
+  background-image: url('./src/assets/imgs/fondoo.jpg');
   background-size: cover;
     display: flex;
     flex-direction: column;

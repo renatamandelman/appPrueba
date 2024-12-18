@@ -161,6 +161,7 @@ function drawScores() {
       console.info(`attempt to score on game ${getGameName(i)}`);
 
       if (game.scores[game.turn - 1][i] !== "") {
+        openModal();
         modal.innerHTML = `
         <p>Ya se anoto el juego ${getGameName(i)}</p>
         <a id="closeModal" class="button">Anotar otro juego</a>
@@ -176,6 +177,7 @@ function drawScores() {
           game.scores[game.turn - 1][9] === "X" &&
           isGameMatch(reGenerala))
       ) {
+        openModal();
         modal.innerHTML = `
         <p>No se puede anotar la doble generala sin haber anotado la general primero</p>
         <a id="closeModal" class="button">Anotar otro juego</a>
@@ -187,6 +189,7 @@ function drawScores() {
         changePlayerTurn();
       } else if (i === 9 && game.scores[game.turn - 1][10] === "" && !isGameMatch(reGenerala)
       ) {
+        openModal();
         modal.innerHTML = `
         <p>No se puede tachar la generala sin haber tachado la doble</p>
         <a id="closeModal" class="button">Anotar otro juego</a>
@@ -195,6 +198,7 @@ function drawScores() {
       } else {
         const score = calculateScore(i);
           if(score === 0){
+            openModal();
             modal.innerHTML = `
             <p>Queres tachar ${getGameName(i)}?</p>
             <div >
@@ -202,13 +206,13 @@ function drawScores() {
             <a id="tachar" class="button">Si</a>
             </div>
             `
-            modal.classList.remove("nodisp");
-            modalBg.style.display = "flex";
+
             document.querySelector("#tachar").addEventListener("click", () => {
               game.scores[game.turn - 1][i] = "X";
               modal.classList.add("nodisp");
               modalBg.style.display = "none";
-
+              modal.classList.add("nodisp");
+                modalBg.style.display = "none";
               drawScores();
               changePlayerTurn();
               });
@@ -269,6 +273,7 @@ const gameOver = () => {
       winner = i;
     }
   }
+  openModal();
   modal.innerHTML = `
             <p>Ganador: J${winner + 1}</p>
             <p>Ganó con: ${winningScore} puntos</p>
@@ -543,15 +548,14 @@ window.addEventListener("resize", () => {
   });
 });
 
-function closeModal(){
+function openModal(){
    modal.classList.remove("nodisp");
    modalBg.style.display = "flex";
+}
+      
+function closeModal(){
   document.querySelector("#closeModal").addEventListener("click", () => {
-      modal.classList.add("nodisp");
-      modalBg.style.display = "none";
-        });
-        }
-        // document.getElementById("llenar").addEventListener("click", () => {
-        //   //   calculateScore();
-        //   //   gameOver();
-        //   // })
+  modal.classList.add("nodisp");
+  modalBg.style.display = "none";
+  });
+}

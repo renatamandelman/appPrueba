@@ -334,7 +334,7 @@ function mostrarErrorApuesta() {
 
   document.getElementById("btnApuestaRetry").addEventListener("click", () => {
     let apuesta = parseInt(document.getElementById("apuesta").value);
-    if (apuesta < 1000 || apuesta > 5000 || apuesta === NaN) {
+    if (apuesta < 1000 || apuesta > 5000 || !apuesta) {
       mostrarErrorApuesta();
     } else {
       realizarApuesta(apuesta);
@@ -366,19 +366,19 @@ function transitionCard(cardsTo, hand, div, i) {
       mostrarModal(mensaje);
       document.getElementById("as").addEventListener("click", () =>{
         cardSeleccionada.valor = 1;
-        if(blackJack.apuesta === 0){
-        primerApuesta();
-        }
+        // if(blackJack.apuesta === 0){
+        // primerApuesta();
+        // }
         closeModal();
       });
       document.getElementById("11").addEventListener("click", () =>{
         cardSeleccionada.valor = 11;
-        if(blackJack.apuesta === 0){
-          primerApuesta();
-          }
+        // if(blackJack.apuesta === 0){
+        //   primerApuesta();
+        //   }
         closeModal();
       });
-    }
+    } 
     cardsTo.push(cardSeleccionada);
     console.log(cardsTo)
     if (cardsTo === blackJack.cardsPlayer) {

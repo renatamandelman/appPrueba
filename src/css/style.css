@@ -160,8 +160,15 @@ h1 {
 .mainContainer div{
   width:20%;
 }
-.centered, .mainContainer{
+
+#g1 .centered,.mainContainer{
   margin-top:1em;
+}
+#g1{
+  display: flex;
+    flex-direction: column;
+    padding: 1em;
+    align-items: center;
 }
 }
  

@@ -25,14 +25,11 @@ a {
 .reiniciar{
   background-color: #088395;
   color:white;
+  padding:1em;
+  border-radius:0.5em;
 }
 .reiniciar:hover{
   cursor:pointer;
-}
-#reiniciar{
-  padding:1em;
-  border-radius:0.5em;
-
 }
 .disableReiniciarBoton{
   width: 1.5em;
@@ -43,8 +40,8 @@ a {
   font-size:1.2em;
   color:grey;
   pointer-events: none;
-  /* padding:1em;
-  border-radius:0.5em; */
+  padding:1em;
+  border-radius:0.5em;
 }
 .disable {
   background-color: #d7ddda;
@@ -128,24 +125,31 @@ a {
   #g1 .centered, #g3 .centered{
     height:80vh;
   }
+  #g1 .centered{
+    flex-direction: column;
+  }
 }
 
 @media (orientation: landscape) and (max-width: 1024px) {
-  .h2Reiniciar, .h1Contenedor{
+  .h2Reiniciar{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
   }
-  #g1 .centered, #g3.centered{
+ #g3.centered{
     height:50vh;
+  }
+  #g1 .centered{
+    height: 60vh;
+    width: 80%;
+    justify-content: space-evenly;
   }
   #contenedor {
     grid-template-columns: repeat(3, 80px); /* Columnas más pequeñas */
     gap: 6px;
   }
   .gameContainer{
-    width:80%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -156,25 +160,14 @@ a {
     height: 80px;
   }
 
-  #reiniciar {
-    padding: 0.6em;
-    font-size: 0.8em;
-  }
-
-  .xTurn, .oTurn {
-    font-size: 1em;
-    width: 1em;
-  }
-
   h2 {
     font-size: 1.5em;
   }
-  #g1 .disableReiniciar{
+  /* #g1 .disableReiniciar{
     padding:0.5em;
 
-  }
+  } */
   h1{
     font-size: 2.5em;
-    margin:0;
   }
 }

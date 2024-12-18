@@ -122,7 +122,10 @@ border-radius: 10px;
 #modalWinner{
   display: flex;
 }
-  @media (max-width: 500px) {
+  @media (max-width: 600px) {
+    body{
+      background-size: 120%;
+    }
     h1{
         font-size: 2em;
     }
@@ -133,6 +136,7 @@ border-radius: 10px;
       align-items: center;
       justify-content: center;
       flex-direction: column;
+      margin-top:2em;
     }
     #botones {
       width:90%;

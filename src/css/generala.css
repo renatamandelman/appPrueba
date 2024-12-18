@@ -158,7 +158,7 @@ cursor: default;
   }
 
   #boardGenerala {
-    width: 80%;
+    width: 100%;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -172,7 +172,7 @@ cursor: default;
   }
 
   #btnDados {
-  width: 40%;
+    width:40%;
   border-radius: 0.5em;
   font-size: 1.1em;
   margin-bottom:0.5em;
@@ -220,19 +220,25 @@ cursor: default;
     padding: 0.5em;
   }
   .game-state{
-    width:90%;
+    width:80%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     font-size:1.3em;
+
   }
 }
-/* Media Query para dispositivos en modo landscape y un ancho máximo de 1024px */
-  #g2 .centered{
+@media (orientation: landscape) and (max-width: 1024px) { 
+    #g2 h1 {
+    font-size: 2em;
+    padding: 0;
+  }
+#g2 .centered{
     flex-direction: column;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-top:0;
     
   }
   #boardGenerala {
@@ -298,15 +304,18 @@ cursor: default;
     font-size: 1em;
     padding: 0.6em;
   }
-  @media (orientation: landscape) and (max-width: 1024px) { 
+
 
     #g2 .scores {
-      font-size: 0.8em;
-      margin-top: -2em;
+      font-size: 0.9em;
+      margin-top: -3em;
     }
     #g2 .scores td,
     #g2 .scores th {
       padding: 0.2rem;
       min-width: 2.5rem;
+    }
+    .game-state{
+      margin-top:-1em;
     }
   }

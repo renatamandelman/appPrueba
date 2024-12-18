@@ -160,5 +160,8 @@ h1 {
 .mainContainer div{
   width:20%;
 }
+.centered, .mainContainer{
+  margin-top:1em;
+}
 }
  

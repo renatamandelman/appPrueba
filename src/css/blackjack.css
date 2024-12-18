@@ -1,6 +1,6 @@
 #canvasDiv {
   background-position: center;
-  background-image: url('./src/assets/imgs/fondoo.jpg');
+  background-image: url('src/assets/imgs/fondoo.jpg');
   background-size: cover;
     display: flex;
     flex-direction: column;
@@ -161,6 +161,12 @@ border-radius: 10px;
 
   }
   @media (orientation: landscape) and (max-width: 1024px) {
+    #g3 .title{
+      width:100%;
+    }
+    body{
+      background-size: 50%;
+    }
    #canvasDiv{
     flex-direction: row;
     justify-content: space-around;
@@ -176,5 +182,14 @@ border-radius: 10px;
   }
   #g3 .centered{
     justify-content: space-around;
+  }
+  #player{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #playerHand{
+    display: flex;
+    flex-wrap: wrap;
   }
   }

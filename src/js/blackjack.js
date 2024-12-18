@@ -21,7 +21,7 @@ function board() {
     canvasDiv.style.height = canvasHeight + "px";
   } else if (window.innerWidth > 600 && window.innerWidth < 1000) {
     canvasWidth = 600;
-    canvasHeight = 300;
+    canvasHeight = 250;
     canvasDiv.style.width = canvasWidth + "px";
     canvasDiv.style.height = canvasHeight + "px";
   } else if(window.innerWidth > 1000){
@@ -256,8 +256,8 @@ function initGame() {
 }
 
 function reiniciar(){
-  pedirCarta.removeAttribute("disabled", "disabled");
-  pedirCarta.classList.remove("disable");
+  pedirCarta.setAttribute("disabled", "disabled");
+  pedirCarta.classList.add("buttonDisabled");
   blackJack.apuesta = 0;
   blackJack.totalPlayer = 0;
   blackJack.totalCrupier = 0;
@@ -291,6 +291,8 @@ function primerApuesta() {
       mostrarErrorApuesta();
     } else {
       realizarApuesta(apuesta);
+      pedirCarta.removeAttribute("disabled", "disabled");
+      pedirCarta.classList.remove("buttonDisabled");
       closeModal()
     }
   });
@@ -331,11 +333,13 @@ function mostrarErrorApuesta() {
   mostrarModal(mensaje);
 
   document.getElementById("btnApuestaRetry").addEventListener("click", () => {
-    blackJack.apuesta = parseInt(document.getElementById("apuesta").value);
-    if (blackJack.apuesta < 1000 || blackJack.apuesta > 5000) {
+    let apuesta = parseInt(document.getElementById("apuesta").value);
+    if (apuesta < 1000 || apuesta > 5000 || apuesta === NaN) {
       mostrarErrorApuesta();
     } else {
-      realizarApuesta(blackJack.apuesta);
+      realizarApuesta(apuesta);
+      pedirCarta.removeAttribute("disabled", "disabled");
+      pedirCarta.classList.remove("buttonDisabled");
       closeModal()
 
     }
@@ -362,12 +366,16 @@ function transitionCard(cardsTo, hand, div, i) {
       mostrarModal(mensaje);
       document.getElementById("as").addEventListener("click", () =>{
         cardSeleccionada.valor = 1;
+        if(blackJack.apuesta === 0){
         primerApuesta();
+        }
         closeModal();
       });
       document.getElementById("11").addEventListener("click", () =>{
         cardSeleccionada.valor = 11;
-        primerApuesta();
+        if(blackJack.apuesta === 0){
+          primerApuesta();
+          }
         closeModal();
       });
     }

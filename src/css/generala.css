@@ -228,7 +228,6 @@ cursor: default;
   }
 }
 /* Media Query para dispositivos en modo landscape y un ancho máximo de 1024px */
-@media (orientation: landscape) and (max-width: 1024px) {
   #g2 .centered{
     flex-direction: column;
       display: flex;
@@ -281,16 +280,6 @@ cursor: default;
     margin: 15px;
   }
 
-  #g2 .scores {
-    font-size: 0.8em;
-    margin-top: -2em;
-  }
-  #g2 .scores td,
-  #g2 .scores th {
-    padding: 0.2rem;
-    min-width: 2.5rem;
-  }
-
   /* Modal */
   .modal {
     width: 50%;
@@ -309,4 +298,15 @@ cursor: default;
     font-size: 1em;
     padding: 0.6em;
   }
-}
+  @media (orientation: landscape) and (max-width: 1024px) { 
+
+    #g2 .scores {
+      font-size: 0.8em;
+      margin-top: -2em;
+    }
+    #g2 .scores td,
+    #g2 .scores th {
+      padding: 0.2rem;
+      min-width: 2.5rem;
+    }
+  }
